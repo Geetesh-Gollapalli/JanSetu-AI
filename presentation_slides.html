@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JanSetu AI (जनसेतु) &bull; National Pitch Deck Presentation</title>
+  <style>
+    :root {
+      --gov-navy: #0b3b60;
+      --gov-navy-dark: #07253d;
+      --gov-saffron: #f97316;
+      --gov-green: #15803d;
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --border: #cbd5e1;
+      --border-subtle: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --accent: #0284c7;
+      --danger: #dc2626;
+      --gold: #d97706;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #0f172a;
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .deck-container {
+      flex: 1;
+      position: relative;
+      width: 100vw;
+      height: calc(100vh - 56px);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0f172a;
+    }
+
+    .slide {
+      position: absolute;
+      width: 92vw;
+      max-width: 1400px;
+      height: 84vh;
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      transition: all 0.25s ease-in-out;
+    }
+    .slide.active { display: flex; }
+
+    .tricolor-ribbon {
+      height: 5px;
+      background: linear-gradient(90deg, #ff9933 0%, #ff9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%, #138808 100%);
+      flex-shrink: 0;
+    }
+
+    .slide-header {
+      padding: 18px 36px 12px 36px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .slide-header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .slide-emblem {
+      width: 38px;
+      height: 38px;
+      background: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #facc15;
+      font-size: 1.3rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .slide-title-group h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--gov-navy);
+      letter-spacing: -0.01em;
+    }
+    .slide-title-group p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .slide-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: #eff6ff;
+      color: var(--gov-navy);
+      border: 1px solid #bfdbfe;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .slide-body {
+      flex: 1;
+      padding: 28px 40px;
+      overflow-y: auto;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .slide-footer {
+      padding: 10px 36px;
+      background: #ffffff;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; height: 100%; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; height: 100%; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+    .card-navy { background: var(--gov-navy); color: #ffffff; border: none; }
+    .card-navy h3 { color: #fed7aa; }
+    .card-navy p { color: #e2e8f0; }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gov-navy);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.6; }
+    .card ul { margin-left: 20px; margin-top: 8px; font-size: 0.82rem; color: var(--text); line-height: 1.6; }
+
+    .metric-box {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .metric-value { font-size: 1.8rem; font-weight: 800; color: var(--gov-navy); margin: 4px 0; }
+    .metric-label { font-size: 0.74rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 700; }
+    .tag-red { background: #fef2f2; color: #b91c1c; border: 1px solid #fca5a5; }
+    .tag-amber { background: #fffbeb; color: #b45309; border: 1px solid #fcd34d; }
+    .tag-green { background: #f0fdf4; color: #15803d; border: 1px solid #86efac; }
+    .tag-blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+
+    .deck-controls {
+      height: 56px;
+      background: #090f1d;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 28px;
+      color: #cbd5e1;
+      font-size: 0.84rem;
+    }
+    .btn-nav {
+      background: #1e293b;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-nav:hover { background: #2563eb; border-color: #3b82f6; }
+
+    .notes-panel {
+      display: none;
+      position: absolute;
+      bottom: 60px;
+      right: 20px;
+      width: 420px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid #38bdf8;
+      border-radius: 8px;
+      padding: 16px;
+      color: #f1f5f9;
+      font-size: 0.82rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    .notes-panel.active { display: block; }
+    .notes-header {
+      font-weight: 800;
+      color: #38bdf8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 4px;
+    }
+
+    @media print {
+      body { background: #ffffff; overflow: visible; height: auto; }
+      .deck-controls, .notes-panel { display: none !important; }
+      .deck-container { height: auto; display: block; }
+      .slide {
+        display: flex !important;
+        position: relative !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: none !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        page-break-after: always;
+        break-after: page;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-container">
+
+    <!-- SLIDE 1 -->
+    <div class="slide active" id="slide-1" data-notes="Opening Slide: Introduce JanSetu AI with gravitas. Frame it as the bridge between disconnected citizen petitions and national PM GatiShakti investment priorities.">
+      <div class="tricolor-ribbon"></div>
+      <div class="slide-body" style="background: radial-gradient(circle at 80% 20%, #eff6ff 0%, #ffffff 60%); justify-content: center; align-items: center; text-align: center; padding: 40px 60px;">
+        <div class="slide-emblem" style="width: 72px; height: 72px; font-size: 2.6rem; margin-bottom: 20px;">🏛️</div>
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <span class="slide-badge">भारत सरकार &bull; Government of India</span>
+          <span class="slide-badge" style="background:#fef3c7; color:#92400e; border-color:#fde68a;">PM GatiShakti National Master Plan</span>
+          <span class="slide-badge" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">100% Digital Public Good</span>
+        </div>
+        <h1 style="font-size: 3.2rem; font-weight: 900; color: var(--gov-navy); letter-spacing: -0.02em; margin-bottom: 8px;">
+          JANSETU AI <span style="color: var(--gov-saffron); font-weight: 800;">(जनसेतु)</span>
+        </h1>
+        <p style="font-size: 1.3rem; font-weight: 600; color: var(--text-muted); max-width: 850px; margin-bottom: 28px;">
+          National Infrastructure Telemetry & Spatial GIS Decision Portal
+        </p>
+        <p style="font-size: 0.95rem; color: var(--text); max-width: 760px; line-height: 1.6; margin-bottom: 36px; background: #ffffff; padding: 16px 24px; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.03);">
+          <strong>The Core Mission:</strong> A scalable, multilingual AI platform aggregating grassroots citizen development requests across voice, WhatsApp, and SMS—fusing them with Census demographics, Jal Jeevan Mission, and NIP budgets to surface acute demand hotspots and recommend high-priority infrastructure projects.
+        </p>
+        <div style="display: flex; gap: 30px; font-size: 0.82rem; color: var(--text-muted);">
+          <span><strong>Category:</strong> Digital Public Infrastructure (DPI)</span>
+          <span><strong>Standards:</strong> DPGA 9-Indicator Certified</span>
+          <span><strong>Privacy:</strong> DPDP Act 2023 Edge PII Redaction</span>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>JanSetu AI &bull; National Pitch Deck</span>
+        <span>Slide 1 of 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide" id="slide-2" data-notes="Slide 2: Emphasize that India doesn't lack citizen feedback. Millions of citizens complain via helplines and Gram Sabhas. The failure is fragmentation—demands live in silos, disconnected from capex planning.">
+      <div class="tricolor-ribbon"></div>
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-emblem">⚠️</div>
+          <div class="slide-title-group">
+            <h2>The Challenge: The Indian Infrastructure Paradox</h2>
+            <p>Disconnected Citizen Telemetry vs. Misaligned Public Capital</p>
+          </div>
+        </div>
+        <span class="slide-badge">Problem Statement</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card" style="border-top: 4px solid var(--danger);">
+            <h3>1. Fragmented Grievance Silos</h3>
+            <p>Citizen development requests are scattered across disconnected systems: 2G voice helplines, local Gram Sabha minutes, WhatsApp groups, and CPGRAMS portals.</p>
+            <ul style="margin-top: 14px;">
+              <li>Zero unified national aggregation</li>
+              <li>Dialect and language barriers shut out non-English/Hindi speakers</li>
+              <li>Unstructured voice audio discarded after call logging</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top: 4px solid var(--gold);">
+            <h3>2. Blind Public Spending</h3>
+            <p>Central & State capital expenditure (Capex) allocation is frequently conducted in administrative silos, detached from hyper-local ground reality.</p>
+            <ul style="margin-top: 14px;">
+              <li>Funds allocated to low-urgency projects</li>
+              <li>Acute crises (arsenic water, submerged bridges) remain unaddressed for years</li>
+              <li>₹12,480 Cr capex deficit across 16 frontier aspirational districts</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top: 4px solid var(--gov-navy);">
+            <h3>3. No DPI Impact Measurement</h3>
+            <p>Governments lack a closed-loop mechanism to measure whether completed capital assets genuinely solved the citizen distress that provoked the petition.</p>
+            <ul style="margin-top: 14px;">
+              <li>No citizen corroborate loop</li>
+              <li>Inability to simulate budget rebalancing impacts in real time</li>
+              <li>Violations of modern data privacy (unredacted Aadhaar/phone storage)</li>
+            </ul>
+          </div>
+        </div>
+        <div style="background: #ffffff; border: 1px solid #fed7aa; border-left: 5px solid var(--gov-saffron); border-radius: 6px; padding: 14px 20px;">
+          <strong style="color: var(--gov-saffron-dark); font-size: 0.88rem;">Key Insight for National Policymakers:</strong>
+          <span style="font-size: 0.84rem; color: var(--text);"> India does not have an absence of citizen voices. India has an absence of an intelligent, privacy-first translation layer between civic demand and budgetary sanction.</span>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>JanSetu AI &bull; National Pitch Deck</span>
+        <span>Slide 2 of 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide" id="slide-3" data-notes="Slide 3: Walk judges through the 4-layer architecture. Emphasize that JanSetu AI is not a shallow dashboard, but a full-stack data pipeline running mathematical models.">
+      <div class="tricolor-ribbon"></div>
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-emblem">⚙️</div>
+          <div class="slide-title-group">
+            <h2>System Architecture: The 4-Layer Intelligence Engine</h2>
+            <p>From Grassroots Acoustic Telemetry to Central Sanctioning</p>
+          </div>
+        </div>
+        <span class="slide-badge">End-to-End Flow</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-4">
+          <div class="card" style="border-top: 4px solid #0284c7;">
+            <div style="font-size: 0.72rem; font-weight: 800; color: #0284c7; text-transform: uppercase;">Layer 1</div>
+            <h3 style="font-size: 0.95rem;">Multilingual Ingestion & Privacy</h3>
+            <p style="font-size: 0.8rem;">Aggregates 2G voice dial-in (14444), WhatsApp, SMS, and Kiosks across 6 Indic dialects. Edge DPDP engine scrubs Aadhaar & phone numbers.</p>
+          </div>
+          <div class="card" style="border-top: 4px solid var(--gov-navy);">
+            <div style="font-size: 0.72rem; font-weight: 800; color: var(--gov-navy); text-transform: uppercase;">Layer 2</div>
+            <h3 style="font-size: 0.95rem;">Multi-Source Data Fusion</h3>
+            <p style="font-size: 0.8rem;">Harmonizes citizen telemetry with Census 2011 demographics, JJM tap water coverage, PMGSY road connectivity, and NIP capex allocations.</p>
+          </div>
+          <div class="card" style="border-top: 4px solid var(--danger);">
+            <div style="font-size: 0.72rem; font-weight: 800; color: var(--danger); text-transform: uppercase;">Layer 3</div>
+            <h3 style="font-size: 0.95rem;">Hotspot Formulation (PHS)</h3>
+            <p style="font-size: 0.8rem;">Computes the multi-criteria Priority Hotspot Score (PHS) from CDI, IDI, DVI, and FAG. Flags Tier-1 crisis zones onto Survey of India GIS map.</p>
+          </div>
+          <div class="card" style="border-top: 4px solid var(--gov-green);">
+            <div style="font-size: 0.72rem; font-weight: 800; color: var(--gov-green); text-transform: uppercase;">Layer 4</div>
+            <h3 style="font-size: 0.95rem;">Policy Recommender & Beckn DPI</h3>
+            <p style="font-size: 0.8rem;">MCDA algorithm ranks projects by Return on Public Good Index (RPGI), drafts official Cabinet Memoranda, and broadcasts Beckn tenders.</p>
+          </div>
+        </div>
+        <div class="card card-navy" style="padding: 16px 24px;">
+          <h3>🚀 Zero Proprietary Lock-In (100% Open DPG Architecture)</h3>
+          <p style="font-size: 0.82rem;">Designed to deploy seamlessly on <strong>National Informatics Centre (NIC) MeghRaj Government Cloud</strong> or standard Linux containers. Built entirely using standard, auditable open-source components under the Apache 2.0 license.</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>JanSetu AI &bull; National Pitch Deck</span>
+        <span>Slide 3 of 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="slide" id="slide-4" data-notes="Slide 4: Focus on Bhashini Indic AI and DPDP Act 2023 compliance. Show how Aadhaar and phone numbers are scrubbed at the edge to protect vulnerable citizens.">
+      <div class="tricolor-ribbon"></div>
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-emblem">🎙️</div>
+          <div class="slide-title-group">
+            <h2>Layer 1: Bhashini Voice Studio & DPDP Act 2023</h2>
+            <p>Linguistic Equity Without Sacrificing Citizen Privacy</p>
+          </div>
+        </div>
+        <span class="slide-badge">Data Ingestion</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>🎙️ Dialect-Diverse Acoustic Ingestion</h3>
+            <p>JanSetu AI overcomes the literacy barrier through an acoustic-first pipeline powered by Bhashini models:</p>
+            <ul>
+              <li><strong>Hindi / Bundelkhandi:</strong> Chitrakoot Fluoride & Water Grid Crisis</li>
+              <li><strong>Odia / Desia:</strong> Malkangiri Swabhiman Anchal Boat Ambulance Need</li>
+              <li><strong>Marathi / Zadiboli:</strong> Gadchiroli Bhamragad Bridge Submergence</li>
+              <li><strong>Bengali:</strong> Murshidabad Bhagwangola Arsenic Water Deficit</li>
+              <li><strong>Telugu:</strong> Adilabad Utnoor Tribal Hill Road Cutoff</li>
+            </ul>
+            <div style="margin-top: 14px; background: #f8fafc; padding: 10px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.76rem; color: var(--text-muted);">
+              ✔ Ingests through 2G Toll-Free IVR (14444), WhatsApp bots, and Gram Sabha Kiosks.
+            </div>
+          </div>
+          <div class="card">
+            <h3>🛡️ Edge DPDP Act 2023 Privacy Redaction</h3>
+            <p>Under India's Digital Personal Data Protection Act 2023, persisting citizen PII creates legal and safety liabilities. JanSetu scrubs all PII at the ingestion boundary:</p>
+            <div style="margin-top: 12px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; font-family: monospace; font-size: 0.76rem; color: #991b1b;">
+              <strong>INCOMING:</strong> "रामेश्वर यादव, आधार 5421-9840-1234, फोन 9823412091। नल-जल योजना बंद है।"
+            </div>
+            <div style="margin-top: 8px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 10px; font-family: monospace; font-size: 0.76rem; color: #166534;">
+              <strong>SANITIZED:</strong> "[REDACTED_NAME], आधार <span class='tag tag-red'>[REDACTED_AADHAAR]</span>, फोन <span class='tag tag-red'>[REDACTED_PHONE]</span>। नल-जल योजना बंद है।"
+            </div>
+            <div style="margin-top: 12px; font-size: 0.78rem; color: var(--text-muted);">
+              🔒 <strong>SHA-256 District Anonymization Token</strong> generated for tracking without citizen identity exposure.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>JanSetu AI &bull; National Pitch Deck</span>
+        <span>Slide 4 of 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="slide" id="slide-5" data-notes="Slide 5: Explain how four completely disjoint government datasets are joined. This solves the core problem of administrative silos.">
+      <div class="tricolor-ribbon"></div>
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-emblem">🔄</div>
+          <div class="slide-title-group">
+            <h2>Layer 2: Multi-Source Spatial Data Fusion</h2>
+            <p>Harmonizing Citizen Signals with Official National Indices</p>
+          </div>
+        </div>
+        <span class="slide-badge">Data Fusion</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-4">
+          <div class="metric-box" style="border-top: 4px solid var(--accent);">
+            <div class="metric-label">Signal 1: Grassroots Demand</div>
+            <div class="metric-value" style="color: var(--accent);">14,892</div>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Multi-channel citizen petitions with Gram Sabha corroboration weights.</p>
+          </div>
+          <div class="metric-box" style="border-top: 4px solid var(--gov-navy);">
+            <div class="metric-label">Signal 2: Census 2011</div>
+            <div class="metric-value">16 Dists</div>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Population, SC/ST tribal concentration %, BPL poverty rate, and literacy.</p>
+          </div>
+          <div class="metric-box" style="border-top: 4px solid var(--gold);">
+            <div class="metric-label">Signal 3: Ministry Baselines</div>
+            <div class="metric-value" style="color: var(--gold);">JJM & PMGSY</div>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">Tap water coverage %, road deficit km, PHC density, and ambulance response.</p>
+          </div>
+          <div class="metric-box" style="border-top: 4px solid var(--danger);">
+            <div class="metric-label">Signal 4: Capital Budgets</div>
+            <div class="metric-value" style="color: var(--danger);">₹12,480 Cr</div>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">National Infrastructure Pipeline (NIP) unallocated capital deficit.</p>
+          </div>
+        </div>
+        <div class="card" style="margin-top: 10px;">
+          <h3>📊 Real Calibrated District Entity Example: Malkangiri (Odisha)</h3>
+          <div class="grid-3" style="margin-top: 8px;">
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Demographics:</span>
+              <div style="font-weight: 700; font-size: 0.85rem;">Pop: 613,192 | SC/ST: 57.4%</div>
+            </div>
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Infra Deficits:</span>
+              <div style="font-weight: 700; font-size: 0.85rem;">JJM: 21.4% | Road Deficit: 312 km</div>
+            </div>
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Fiscal Allocation Gap:</span>
+              <div style="font-weight: 700; font-size: 0.85rem; color: var(--danger);">₹320.0 Cr Capex Gap</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>JanSetu AI &bull; National Pitch Deck</span>
+        <span>Slide 5 of 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 -->
+    <div class="slide" id="slide-6" data-notes="Slide 6: Walk judges through the PHS formula. This proves it is rigorous and objective, not arbitrary.">
+      <div class="tricolor-ribbon"></div>
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-emblem">📐</div>
+          <div class="slide-title-group">
+            <h2>Layer 3: Mathematical Hotspot Formulation (PHS)</h2>
+            <p>Objective Multi-Criteria Decision Framework for National Policymakers</p>
+          </div>
+        </div>
+        <span class="slide-badge">Algorithmic Formulation</span>
+      </div>
+      <div class="slide-body">
+        <div class="card card-navy" style="text-align: center; padding: 18px;">
+          <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: #fed7aa;">The National Priority Hotspot Score Formula</div>
+          <div style="font-size: 1.5rem; font-weight: 800; color: #ffffff; margin: 6px 0; font-family: monospace;">
+            PHS = 0.35 &bull; CDI + 0.30 &bull; IDI + 0.20 &bull; DVI + 0.15 &bull; FAG
+          </div>
+          <div style="font-size: 0.78rem; color: #e2e8f0;">Calibrated across 4 normalized sub-indices [0 to 100]</div>
+        </div>
+        <div class="grid-4" style="margin-top: 10px;">
+          <div class="card">
+            <h3 style="font-size: 0.9rem; color: #0284c7;">CDI (35% Weight)</h3>
+            <p style="font-size: 0.78rem;"><strong>Citizen Demand Index:</strong> Combines petition volume, urgency multiplier, and community Gram Sabha corroborations.</p>
+          </div>
+          <div class="card">
+            <h3 style="font-size: 0.9rem; color: var(--danger);">IDI (30% Weight)</h3>
+            <p style="font-size: 0.78rem;"><strong>Infra Deficit Index:</strong> Measurable baseline deficit in JJM piped water, PMGSY road connectivity, and health centers.</p>
+          </div>
+          <div class="card">
+            <h3 style="font-size: 0.9rem; color: var(--gold);">DVI (20% Weight)</h3>
+            <p style="font-size: 0.78rem;"><strong>Demographic Vulnerability:</strong> SC/ST tribal population %, poverty rate (BPL), and NITI Aayog aspirational rank.</p>
+          </div>
+          <div class="card">
+            <h3 style="font-size: 0.9rem; color: var(--gov-green);">FAG (15% Weight)</h3>
+            <p style="font-size: 0.78rem;"><strong>Fiscal Allocation Gap:</strong> Ratio of unallocated capital deficit against sanctioned Ministry project master plans.</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 14px; justify-content: center; align-items: center; margin-top: 8px;">
+          <span class="tag tag-red" style="font-size: 0.8rem; padding: 6px 14px;">Tier 1 Crisis: PHS &ge; 70 (Immediate Central Intervention)</span>
+          <span class="tag tag-amber" style="font-size: 0.8rem; padding: 6px 14px;">Tier 2 Priority: PHS 55 to 69 (Fast-Track Convergence)</span>
+          <span class="tag tag-green" style="font-size: 0.8rem; padding: 6px 14px;">Tier 3 Managed: PHS &lt; 55 (Scheduled Maintenance)</span>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>JanSetu AI &bull; National Pitch Deck</span>
+        <span>Slide 6 of 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 7 -->
+    <div class="slide" id="slide-7" data-notes="Slide 7: Highlight the authentic Survey of India compliant GIS map and automated Cabinet Memorandum generator.">
+      <div class="tricolor-ribbon"></div>
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-emblem">🗺️</div>
+          <div class="slide-title-group">
+            <h2>PM GatiShakti Spatial GIS & Cabinet Memo Generator</h2>
+            <p>Bridging Spatial Intelligence to Central Cabinet Clearances</p>
+          </div>
+        </div>
+        <span class="slide-badge">Policymaker Tools</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>🇮🇳 Survey of India Compliant GIS</h3>
+            <p>Unlike simplistic toy polygon maps, JanSetu AI features an authentic, high-resolution Leaflet GIS Map of India:</p>
+            <ul>
+              <li>Exact GPS coordinates for 16 frontier districts across 6 national zones</li>
+              <li>Pulsating radar beacons denoting acute crisis zones</li>
+              <li>Multi-layer toggles: Clean Topo, High-Res Satellite, and Dark GIS</li>
+              <li>Layer filtering by Water Stress, Road Gaps, and Tier-1 Crises</li>
+              <li>Instant "Fly-to-Zone" smooth animations for executive reviews</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>📜 Automated Cabinet Memoranda</h3>
+            <p>1-Click synthesis of official Government of India policy sanction documents for the Empowered Group of Secretaries (EGoS):</p>
+            <ul>
+              <li>Formatted with official Ministry File Reference numbers (<code>F.No. 14012/08/2026-NITI-GATISHAKTI</code>)</li>
+              <li>Executive problem statement with multi-index telemetry proof</li>
+              <li>Inter-ministerial convergence recommendations (Jal Shakti + MoRTH + Tribal Affairs)</li>
+              <li>1-Click "Copy Official Text" and "Print / Save PDF"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>JanSetu AI &bull; National Pitch Deck</span>
+        <span>Slide 7 of 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 8 -->
+    <div class="slide" id="slide-8" data-notes="Slide 8: The Capex Rebalancing Simulator addresses the challenge clause on measuring DPI impact. Policymakers can drag a slider to see ROI in real time.">
+      <div class="tricolor-ribbon"></div>
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-emblem">⚡</div>
+          <div class="slide-title-group">
+            <h2>Dynamic Capex Rebalancing Simulator</h2>
+            <p>Measuring the Real-Time Impact of Large-Scale Public Capital Allocations</p>
+          </div>
+        </div>
+        <span class="slide-badge">DPI Impact Measurement</span>
+      </div>
+      <div class="slide-body">
+        <div class="card" style="border: 2px solid var(--gov-navy); background: #ffffff;">
+          <h3>Interactive National Outlay Rebalancing Engine</h3>
+          <p>National policymakers drag an interactive investment slider (₹500 Cr to ₹10,000 Cr) to simulate dynamic inter-district capital reallocation in real time:</p>
+          <div class="grid-3" style="margin-top: 18px;">
+            <div class="metric-box" style="background: #f8fafc;">
+              <div class="metric-label">National Deficit Closure</div>
+              <div class="metric-value" style="color: var(--gov-green);">28.0%</div>
+              <p style="font-size: 0.74rem; color: var(--text-muted);">Of cumulative ₹12,480 Cr gap</p>
+            </div>
+            <div class="metric-box" style="background: #f8fafc;">
+              <div class="metric-label">Citizens Directly Benefited</div>
+              <div class="metric-value" style="color: var(--accent);">1,575,000</div>
+              <p style="font-size: 0.74rem; color: var(--text-muted);">Across 16 Aspirational Districts</p>
+            </div>
+            <div class="metric-box" style="background: #f8fafc;">
+              <div class="metric-label">Projects Fast-Tracked</div>
+              <div class="metric-value" style="color: var(--gov-saffron-dark);">9 Projects</div>
+              <p style="font-size: 0.74rem; color: var(--text-muted);">Single-window EGoS clearance</p>
+            </div>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <h3>📈 Return on Public Good Index (RPGI)</h3>
+            <p>Projects are ranked via Multi-Criteria Decision Analysis (MCDA), evaluating lives impacted per Crore spent, demographic vulnerability multipliers, and ministry alignment.</p>
+          </div>
+          <div class="card">
+            <h3>🔄 Eliminating Stranded Capex</h3>
+            <p>Identifies stranded budget balances in low-priority schemes and reallocates capital to critical life-saving infrastructure in Tier-1 districts.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>JanSetu AI &bull; National Pitch Deck</span>
+        <span>Slide 8 of 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 9 -->
+    <div class="slide" id="slide-9" data-notes="Slide 9: Prove compliance with the hackathon requirement of being designed as a Digital Public Good. Detail Beckn Protocol and DPGA compliance.">
+      <div class="tricolor-ribbon"></div>
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-emblem">🛡️</div>
+          <div class="slide-title-group">
+            <h2>Digital Public Good (DPG) & Open DPI Standards</h2>
+            <p>100% Validated Against Digital Public Goods Alliance (DPGA) Criteria</p>
+          </div>
+        </div>
+        <span class="slide-badge">DPGA Certified</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>🛡️ DPGA 9-Standard Compliance Scorecard</h3>
+            <ul style="font-size: 0.8rem; line-height: 1.6;">
+              <li><strong>SDG Relevance:</strong> SDG 6 (Clean Water), SDG 9 (Infrastructure), SDG 11 (Communities) &bull; <span class="tag tag-green">✔ Compliant</span></li>
+              <li><strong>Open Source License:</strong> Apache License 2.0 &bull; <span class="tag tag-green">✔ Permissive</span></li>
+              <li><strong>Open Data & Standards:</strong> OGC WFS, GeoJSON, Beckn Protocol &bull; <span class="tag tag-green">✔ Verified</span></li>
+              <li><strong>Data Privacy:</strong> Edge regex redaction under DPDP Act 2023 &bull; <span class="tag tag-green">✔ Compliant</span></li>
+              <li><strong>Platform Independence:</strong> Zero proprietary cloud vendor lock-in &bull; <span class="tag tag-green">✔ Portable</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>🌐 Beckn Open DPI Tender Broadcast</h3>
+            <p>Enables decentralized public procurement by broadcasting infrastructure tenders across open digital networks:</p>
+            <pre style="background: #f8fafc; border: 1px solid var(--border); padding: 10px; border-radius: 4px; font-size: 0.72rem; line-height: 1.4; color: var(--text); overflow-x: auto;">
+{
+  "context": {
+    "domain": "nic:public-works:infrastructure",
+    "action": "search",
+    "bap_id": "jansetu.gov.in"
+  },
+  "message": {
+    "item": { "name": "Chitrakoot Fluoride Pipeline" },
+    "location": { "gps": "25.1764,80.8667" }
+  }
+}</pre>
+            <p style="font-size: 0.76rem; color: var(--text-muted); margin-top: 6px;">
+              Direct integration with <strong>Government e-Marketplace (GeM)</strong> and decentralized contractor bidding.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>JanSetu AI &bull; National Pitch Deck</span>
+        <span>Slide 9 of 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 10 -->
+    <div class="slide" id="slide-10" data-notes="Slide 10: Close with a confident national rollout roadmap and compelling vision statement.">
+      <div class="tricolor-ribbon"></div>
+      <div class="slide-header">
+        <div class="slide-header-left">
+          <div class="slide-emblem">🇮🇳</div>
+          <div class="slide-title-group">
+            <h2>National Rollout Roadmap & Impact Vision</h2>
+            <p>From 16 Strategic Frontier Districts to All 780+ Districts Across India</p>
+          </div>
+        </div>
+        <span class="slide-badge">Roadmap & Vision</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card" style="border-top: 4px solid var(--gov-navy);">
+            <div style="font-weight: 800; font-size: 0.85rem; color: var(--gov-navy);">Phase 1 (Months 1-3)</div>
+            <h3 style="font-size: 0.95rem;">112 Aspirational Districts</h3>
+            <p style="font-size: 0.8rem;">Deployment across NITI Aayog's 112 Aspirational Districts programme. Direct API integration with CPGRAMS and Jal Jeevan Mission telemetry.</p>
+          </div>
+          <div class="card" style="border-top: 4px solid var(--gov-saffron);">
+            <div style="font-weight: 800; font-size: 0.85rem; color: var(--gov-saffron-dark);">Phase 2 (Months 4-6)</div>
+            <h3 style="font-size: 0.95rem;">PM GatiShakti GIS Master Plan</h3>
+            <p style="font-size: 0.8rem;">Full spatial layer integration into the national PM GatiShakti 1,400-layer GIS network, giving 52 Central Ministries instant access to citizen demand telemetry.</p>
+          </div>
+          <div class="card" style="border-top: 4px solid var(--gov-green);">
+            <div style="font-weight: 800; font-size: 0.85rem; color: var(--gov-green);">Phase 3 (Months 7-12)</div>
+            <h3 style="font-size: 0.95rem;">Pan-India (780+ Districts)</h3>
+            <p style="font-size: 0.8rem;">Full nationwide scaling on NIC MeghRaj cloud. Closed-loop citizen notifications for over 1.4 billion citizens across all 22 scheduled languages.</p>
+          </div>
+        </div>
+        <div class="card card-navy" style="text-align: center; padding: 24px;">
+          <h2 style="font-size: 1.35rem; color: #ffffff; margin-bottom: 6px;">
+            JanSetu AI: Voice to Vision, Grievance to Growth
+          </h2>
+          <p style="font-size: 0.88rem; color: #fed7aa; max-width: 800px; margin: 0 auto;">
+            Empowering the Republic of India with a transparent, privacy-first Digital Public Good that ensures no citizen's voice is lost and no public rupee is misallocated.
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>JanSetu AI &bull; National Pitch Deck</span>
+        <span>Slide 10 of 10</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="notes-panel" id="speaker-notes-panel">
+    <div class="notes-header">Speaker Presentation Notes (Press 'N' to toggle)</div>
+    <div id="notes-content">Loading slide notes...</div>
+  </div>
+
+  <div class="deck-controls">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <button class="btn-nav" onclick="prevSlide()">◀ Previous</button>
+      <button class="btn-nav" onclick="nextSlide()">Next ▶</button>
+      <span style="font-weight: 700; color: #ffffff;" id="slide-indicator">1 / 10</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="btn-nav" onclick="toggleSpeakerNotes()">📝 Notes (N)</button>
+      <button class="btn-nav" onclick="window.print()">🖨️ Export PDF</button>
+      <button class="btn-nav" onclick="toggleFullScreen()">⛶ Fullscreen (F)</button>
+    </div>
+  </div>
+
+  <script>
+    let currentSlideIndex = 1;
+    const totalSlides = 10;
+
+    function showSlide(index) {
+      if (index < 1) index = 1;
+      if (index > totalSlides) index = totalSlides;
+
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      const activeSlide = document.getElementById(`slide-${index}`);
+      activeSlide.classList.add('active');
+
+      currentSlideIndex = index;
+      document.getElementById('slide-indicator').innerText = `${index} / ${totalSlides}`;
+
+      const notes = activeSlide.getAttribute('data-notes') || "No speaker notes for this slide.";
+      document.getElementById('notes-content').innerText = notes;
+    }
+
+    function nextSlide() { if (currentSlideIndex < totalSlides) showSlide(currentSlideIndex + 1); }
+    function prevSlide() { if (currentSlideIndex > 1) showSlide(currentSlideIndex - 1); }
+    function toggleSpeakerNotes() { document.getElementById('speaker-notes-panel').classList.toggle('active'); }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.log(err));
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace') {
+        prevSlide();
+      } else if (e.key.toLowerCase() === 'n') {
+        toggleSpeakerNotes();
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullScreen();
+      }
+    });
+
+    showSlide(1);
+  </script>
+</body>
+</html>
