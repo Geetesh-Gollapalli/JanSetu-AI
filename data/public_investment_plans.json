@@ -1,0 +1,57 @@
+{
+  "IND-UP-01": {
+    "central_budget_allocation_cr": 420.5,
+    "state_budget_allocation_cr": 285.0,
+    "planned_capex_gap_cr": 310.0,
+    "nip_projects": [
+      {
+        "name": "Surface Water Grid",
+        "status": "Stalled"
+      }
+    ]
+  },
+  "IND-OD-01": {
+    "central_budget_allocation_cr": 240.0,
+    "state_budget_allocation_cr": 160.0,
+    "planned_capex_gap_cr": 520.0,
+    "nip_projects": [
+      {
+        "name": "Gurupriya River Bridge Links",
+        "status": "Stalled"
+      }
+    ]
+  },
+  "IND-MH-01": {
+    "central_budget_allocation_cr": 310.0,
+    "state_budget_allocation_cr": 260.0,
+    "planned_capex_gap_cr": 350.0,
+    "nip_projects": [
+      {
+        "name": "Pearl Kotta High Bridge",
+        "status": "Stalled"
+      }
+    ]
+  },
+  "IND-NL-01": {
+    "central_budget_allocation_cr": 180.0,
+    "state_budget_allocation_cr": 95.0,
+    "planned_capex_gap_cr": 380.0,
+    "nip_projects": [
+      {
+        "name": "NH-202 Bailey Bridges",
+        "status": "Stalled"
+      }
+    ]
+  },
+  "IND-WB-01": {
+    "central_budget_allocation_cr": 510.0,
+    "state_budget_allocation_cr": 390.0,
+    "planned_capex_gap_cr": 380.0,
+    "nip_projects": [
+      {
+        "name": "Arsenic Removal Plant",
+        "status": "Stalled"
+      }
+    ]
+  }
+}

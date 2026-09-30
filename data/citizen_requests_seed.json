@@ -1,0 +1,38 @@
+[
+  {
+    "request_id": "REQ-001",
+    "channel": "voice_ivr",
+    "language": "Hindi",
+    "original_transcript": "\u092e\u093e\u0928\u093f\u0915\u092a\u0941\u0930 \u092e\u0947\u0902 \u0939\u0948\u0902\u0921\u092a\u0902\u092a \u0938\u0947 \u0916\u093e\u0930\u093e \u0914\u0930 \u092b\u094d\u0932\u094b\u0930\u093e\u0907\u0921 \u092a\u093e\u0928\u0940 \u0906 \u0930\u0939\u093e \u0939\u0948, \u092c\u091a\u094d\u091a\u0947 \u092c\u0940\u092e\u093e\u0930 \u0939\u0948\u0902\u0964",
+    "translated_english": "In Manikpur, saline and fluoride water from handpumps is sickening children.",
+    "district_id": "IND-UP-01",
+    "sector": "Water & Sanitation",
+    "urgency_level": "Critical",
+    "upvotes_support_count": 1420,
+    "affected_population_estimate": 18500
+  },
+  {
+    "request_id": "REQ-002",
+    "channel": "whatsapp_bot",
+    "language": "Odia",
+    "original_transcript": "\u0b38\u0b4d\u0b71\u0b3e\u0b2d\u0b3f\u0b2e\u0b3e\u0b28 \u0b05\u0b1e\u0b4d\u0b1a\u0b33\u0b30\u0b47 \u0b2a\u0b4d\u0b30\u0b3e\u0b25\u0b2e\u0b3f\u0b15 \u0b38\u0b4d\u0b71\u0b3e\u0b38\u0b4d\u0b25\u0b4d\u0b5f \u0b15\u0b47\u0b28\u0b4d\u0b26\u0b4d\u0b30 \u0b28\u0b3e\u0b39\u0b3f\u0b01, \u0b06\u0b2e\u0b4d\u0b2c\u0b41\u0b32\u0b3e\u0b28\u0b4d\u0b38 \u0b21\u0b19\u0b4d\u0b17\u0b3e \u0b26\u0b30\u0b15\u0b3e\u0b30\u0964",
+    "translated_english": "No PHC in Swabhiman Anchal, urgent motor boat ambulance needed for pregnant women.",
+    "district_id": "IND-OD-01",
+    "sector": "Healthcare & Sanitation",
+    "urgency_level": "Critical",
+    "upvotes_support_count": 2380,
+    "affected_population_estimate": 14200
+  },
+  {
+    "request_id": "REQ-003",
+    "channel": "telegram_bot",
+    "language": "Marathi",
+    "original_transcript": "\u092d\u093e\u092e\u0930\u093e\u0917\u0921 \u0924\u093e\u0932\u0941\u0915\u094d\u092f\u093e\u0924\u0940\u0932 \u092a\u0930\u094d\u0932\u0915\u094b\u091f\u093e \u0928\u0926\u0940\u0935\u0930\u0940\u0932 \u092a\u0942\u0932 \u092a\u093e\u0935\u0938\u093e\u0933\u094d\u092f\u093e\u0924 \u092a\u093e\u0923\u094d\u092f\u093e\u0916\u093e\u0932\u0940 \u091c\u093e\u0924\u094b, \u096f\u0966 \u0917\u093e\u0935\u0947 \u0924\u0941\u091f\u0924\u093e\u0924.",
+    "translated_english": "Pearl Kotta bridge submerges every monsoon, cutting off 90 tribal villages.",
+    "district_id": "IND-MH-01",
+    "sector": "Roads & Bridges",
+    "urgency_level": "Critical",
+    "upvotes_support_count": 1890,
+    "affected_population_estimate": 45000
+  }
+]

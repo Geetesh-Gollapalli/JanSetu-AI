@@ -1,0 +1,57 @@
+{
+  "IND-UP-01": {
+    "jal_jeevan_fhtc_coverage_pct": 38.4,
+    "water_quality_hazard_index": 78.5,
+    "pmgsy_all_weather_road_connectivity_pct": 58.2,
+    "bridge_culvert_deficit_count": 42,
+    "phc_subcentre_density_per_100k": 12.1,
+    "emergency_ambulance_response_time_mins": 54.0,
+    "bharatnet_gp_connected_pct": 44.0,
+    "telecom_blind_spot_villages_count": 67,
+    "grid_power_reliability_hours_daily": 11.5
+  },
+  "IND-OD-01": {
+    "jal_jeevan_fhtc_coverage_pct": 24.1,
+    "water_quality_hazard_index": 86.5,
+    "pmgsy_all_weather_road_connectivity_pct": 39.2,
+    "bridge_culvert_deficit_count": 94,
+    "phc_subcentre_density_per_100k": 7.2,
+    "emergency_ambulance_response_time_mins": 88.0,
+    "bharatnet_gp_connected_pct": 21.0,
+    "telecom_blind_spot_villages_count": 188,
+    "grid_power_reliability_hours_daily": 8.0
+  },
+  "IND-MH-01": {
+    "jal_jeevan_fhtc_coverage_pct": 36.5,
+    "water_quality_hazard_index": 65.0,
+    "pmgsy_all_weather_road_connectivity_pct": 49.0,
+    "bridge_culvert_deficit_count": 72,
+    "phc_subcentre_density_per_100k": 9.8,
+    "emergency_ambulance_response_time_mins": 68.0,
+    "bharatnet_gp_connected_pct": 31.0,
+    "telecom_blind_spot_villages_count": 118,
+    "grid_power_reliability_hours_daily": 11.0
+  },
+  "IND-NL-01": {
+    "jal_jeevan_fhtc_coverage_pct": 22.0,
+    "water_quality_hazard_index": 62.0,
+    "pmgsy_all_weather_road_connectivity_pct": 31.0,
+    "bridge_culvert_deficit_count": 76,
+    "phc_subcentre_density_per_100k": 6.5,
+    "emergency_ambulance_response_time_mins": 110.0,
+    "bharatnet_gp_connected_pct": 18.0,
+    "telecom_blind_spot_villages_count": 84,
+    "grid_power_reliability_hours_daily": 7.5
+  },
+  "IND-WB-01": {
+    "jal_jeevan_fhtc_coverage_pct": 44.0,
+    "water_quality_hazard_index": 92.5,
+    "pmgsy_all_weather_road_connectivity_pct": 66.0,
+    "bridge_culvert_deficit_count": 64,
+    "phc_subcentre_density_per_100k": 11.8,
+    "emergency_ambulance_response_time_mins": 45.0,
+    "bharatnet_gp_connected_pct": 58.0,
+    "telecom_blind_spot_villages_count": 34,
+    "grid_power_reliability_hours_daily": 16.0
+  }
+}
